@@ -1,0 +1,9 @@
+services:
+  latex-builder:
+    build: .
+    container_name: math-worksheet-builder
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    tty: true
+    stdin_open: true

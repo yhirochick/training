@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{luatexja}
+\usepackage{luatexja-fontspec}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+
+% Noto CJK フォント設定
+\setmainjfont{Noto Sans CJK JP}
+
+% 禁則処理の設定
+\ltjsetparameter{jacharrange={-2}}
+\ltjsetparameter{alxspmode={`\!,inhibit}}
+
+\title{数学演習問題}
+\author{}
+\date{シード: {{ seed }}}
+
+\begin{document}
+
+\maketitle
+
+\section*{中1: 一次方程式}
+
+以下の方程式を解きなさい。
+
+\begin{enumerate}[label=(\arabic*)]
+{% for problem in linear_equations %}
+\item ${{ problem.equation }}$
+{% endfor %}
+\end{enumerate}
+
+\vspace{1cm}
+
+\section*{中1: 比例の式を求める}
+
+次の表の$x$と$y$の関係が比例のとき、比例の式を求めなさい。
+
+\begin{enumerate}[label=(\arabic*)]
+{% for problem in proportional_functions %}
+\item
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x$ & {{ problem.x_values[0] }} & {{ problem.x_values[1] }} & {{ problem.x_values[2] }} \\
+\hline
+$y$ & {{ problem.y_values[0] }} & {{ problem.y_values[1] }} & {{ problem.y_values[2] }} \\
+\hline
+\end{tabular}
+\end{center}
+{% endfor %}
+\end{enumerate}
+
+\vspace{1cm}
+
+\section*{中2: 連立方程式}
+
+以下の連立方程式を解きなさい。
+
+\begin{enumerate}[label=(\arabic*)]
+{% for problem in simultaneous_equations %}
+\item
+$\begin{cases}
+{{ problem.eq1 }} \\
+{{ problem.eq2 }}
+\end{cases}$
+{% endfor %}
+\end{enumerate}
+
+\end{document}
