@@ -26,8 +26,10 @@
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             padding: 40px;
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         h1 {
@@ -70,6 +72,85 @@
             border-color: #667eea;
         }
 
+        .problem-types-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .problem-types-section h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .problem-type-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 2px solid #e0e0e0;
+            transition: border-color 0.3s;
+        }
+
+        .problem-type-item:hover {
+            border-color: #667eea;
+        }
+
+        .problem-type-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .problem-type-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .problem-type-description {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .problem-count-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .problem-count-control input {
+            width: 100px;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .quick-set-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .quick-set-btn {
+            padding: 5px 10px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .quick-set-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
         .radio-group {
             display: flex;
             gap: 15px;
@@ -106,38 +187,7 @@
             border-color: #667eea;
         }
 
-        .problem-types {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-
-        .problem-types h3 {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .problem-types ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .problem-types li {
-            padding: 5px 0;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .problem-types li:before {
-            content: "✓ ";
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        button {
+        button.generate-btn {
             width: 100%;
             padding: 15px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -150,16 +200,16 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        button:hover {
+        button.generate-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        button:active {
+        button.generate-btn:active {
             transform: translateY(0);
         }
 
-        button:disabled {
+        button.generate-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
@@ -247,15 +297,6 @@
         <h1>📚 数学演習問題生成システム</h1>
         <p class="subtitle">中学数学の演習問題と解答をPDFで生成</p>
 
-        <div class="problem-types">
-            <h3>生成される問題タイプ</h3>
-            <ul>
-                <li>中1: 一次方程式 (ax + b = c)</li>
-                <li>中1: 比例の式を求める</li>
-                <li>中2: 連立方程式</li>
-            </ul>
-        </div>
-
         <form id="generateForm">
             <div class="form-group">
                 <label for="seed">乱数シード</label>
@@ -263,10 +304,76 @@
                 <p class="help-text">同じシード値で常に同じ問題セットが生成されます</p>
             </div>
 
-            <div class="form-group">
-                <label for="num_problems">各セクションの問題数</label>
-                <input type="number" id="num_problems" name="num_problems" value="5" min="1" max="20" required>
-                <p class="help-text">1〜20問まで設定可能</p>
+            <div class="problem-types-section">
+                <h3>📝 問題タイプと問題数を選択</h3>
+
+                <div class="problem-type-item">
+                    <div class="problem-type-header">
+                        <span class="problem-type-label">中1: 一次方程式</span>
+                    </div>
+                    <div class="problem-type-description">ax + b = c 形式の方程式</div>
+                    <div class="problem-count-control">
+                        <input type="number" name="linear_equations" id="linear_equations" value="5" min="0" max="500">
+                        <span>問</span>
+                        <div class="quick-set-buttons">
+                            <button type="button" class="quick-set-btn" onclick="setCount('linear_equations', 0)">0</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('linear_equations', 10)">10</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('linear_equations', 50)">50</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('linear_equations', 100)">100</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-type-item">
+                    <div class="problem-type-header">
+                        <span class="problem-type-label">中1: 比例の式を求める（表から）</span>
+                    </div>
+                    <div class="problem-type-description">x, y の値の組から比例の式を求める</div>
+                    <div class="problem-count-control">
+                        <input type="number" name="proportional_functions" id="proportional_functions" value="5" min="0" max="500">
+                        <span>問</span>
+                        <div class="quick-set-buttons">
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_functions', 0)">0</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_functions', 10)">10</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_functions', 50)">50</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_functions', 100)">100</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-type-item">
+                    <div class="problem-type-header">
+                        <span class="problem-type-label">中1: 比例の式を求める（条件から）</span>
+                    </div>
+                    <div class="problem-type-description">yはxに比例し、x=2のときy=6である。yをxの式で表せ。</div>
+                    <div class="problem-count-control">
+                        <input type="number" name="proportional_conditions" id="proportional_conditions" value="5" min="0" max="500">
+                        <span>問</span>
+                        <div class="quick-set-buttons">
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_conditions', 0)">0</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_conditions', 10)">10</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_conditions', 50)">50</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_conditions', 100)">100</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-type-item">
+                    <div class="problem-type-header">
+                        <span class="problem-type-label">中2: 連立方程式</span>
+                    </div>
+                    <div class="problem-type-description">2元1次連立方程式</div>
+                    <div class="problem-count-control">
+                        <input type="number" name="simultaneous_equations" id="simultaneous_equations" value="5" min="0" max="500">
+                        <span>問</span>
+                        <div class="quick-set-buttons">
+                            <button type="button" class="quick-set-btn" onclick="setCount('simultaneous_equations', 0)">0</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('simultaneous_equations', 10)">10</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('simultaneous_equations', 50)">50</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('simultaneous_equations', 100)">100</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -287,12 +394,12 @@
                 </div>
             </div>
 
-            <button type="submit" id="submitBtn">PDF生成</button>
+            <button type="submit" class="generate-btn" id="submitBtn">PDF生成</button>
         </form>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p>PDF生成中... (20〜30秒かかります)</p>
+            <p>PDF生成中... (問題数により30秒〜数分かかります)</p>
         </div>
 
         <div class="result" id="result">
@@ -304,6 +411,10 @@
     </div>
 
     <script>
+        function setCount(fieldId, value) {
+            document.getElementById(fieldId).value = value;
+        }
+
         const form = document.getElementById('generateForm');
         const submitBtn = document.getElementById('submitBtn');
         const loading = document.getElementById('loading');
@@ -321,6 +432,20 @@
             submitBtn.disabled = true;
 
             const formData = new FormData(form);
+
+            // Check if at least one problem type is selected
+            const linear = parseInt(formData.get('linear_equations'));
+            const propFunc = parseInt(formData.get('proportional_functions'));
+            const propCond = parseInt(formData.get('proportional_conditions'));
+            const simul = parseInt(formData.get('simultaneous_equations'));
+
+            if (linear === 0 && propFunc === 0 && propCond === 0 && simul === 0) {
+                error.textContent = 'エラー: 少なくとも1つの問題タイプで問題数を1以上に設定してください';
+                error.style.display = 'block';
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+                return;
+            }
 
             try {
                 const response = await fetch('/generate', {

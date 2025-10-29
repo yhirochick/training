@@ -20,6 +20,7 @@
 
 \maketitle
 
+{% if linear_equations %}
 \section*{中1: 一次方程式}
 
 以下の方程式を解きなさい。
@@ -31,8 +32,10 @@
 \end{enumerate}
 
 \vspace{1cm}
+{% endif %}
 
-\section*{中1: 比例の式を求める}
+{% if proportional_functions %}
+\section*{中1: 比例の式を求める（表から）}
 
 次の表の$x$と$y$の関係が比例のとき、比例の式を求めなさい。
 
@@ -52,7 +55,23 @@ $y$ & {{ problem.y_values[0] }} & {{ problem.y_values[1] }} & {{ problem.y_value
 \end{enumerate}
 
 \vspace{1cm}
+{% endif %}
 
+{% if proportional_conditions %}
+\section*{中1: 比例の式を求める（条件から）}
+
+$y$は$x$に比例する。次の条件のとき、$y$を$x$の式で表しなさい。
+
+\begin{enumerate}[label=(\arabic*)]
+{% for problem in proportional_conditions %}
+\item {{ problem.condition }}
+{% endfor %}
+\end{enumerate}
+
+\vspace{1cm}
+{% endif %}
+
+{% if simultaneous_equations %}
 \section*{中2: 連立方程式}
 
 以下の連立方程式を解きなさい。
@@ -66,5 +85,6 @@ $\begin{cases}
 \end{cases}$
 {% endfor %}
 \end{enumerate}
+{% endif %}
 
 \end{document}

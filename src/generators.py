@@ -92,6 +92,51 @@ class ProportionalFunctionGenerator:
         return problems
 
 
+class ProportionalFunctionFromConditionGenerator:
+    """Generator for proportional function problems from conditions (中1 比例 - 条件から式を求める)."""
+
+    def __init__(self, rng: random.Random):
+        self.rng = rng
+
+    def generate(self, num_problems: int = 5) -> list:
+        """Generate proportional function problems from conditions like 'y is proportional to x, when x=2, y=6'."""
+        problems = []
+
+        for _ in range(num_problems):
+            # Random proportionality constant
+            a = self.rng.randint(-10, 10)
+            while a == 0:
+                a = self.rng.randint(-10, 10)
+
+            # Generate a random x value (not 0)
+            x_value = self.rng.randint(-10, 10)
+            while x_value == 0:
+                x_value = self.rng.randint(-10, 10)
+
+            # Calculate corresponding y value
+            y_value = a * x_value
+
+            # Format condition text
+            condition = f"x={x_value}のときy={y_value}"
+
+            # Format solution
+            if a == 1:
+                solution = "x"
+            elif a == -1:
+                solution = "-x"
+            else:
+                solution = f"{a}x"
+
+            problems.append({
+                'condition': condition,
+                'x_value': x_value,
+                'y_value': y_value,
+                'solution': solution
+            })
+
+        return problems
+
+
 class SimultaneousEquationGenerator:
     """Generator for simultaneous equations (中2 連立方程式)."""
 

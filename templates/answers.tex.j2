@@ -20,6 +20,7 @@
 
 \maketitle
 
+{% if linear_equations %}
 \section*{中1: 一次方程式 解答}
 
 \begin{enumerate}[label=(\arabic*)]
@@ -30,8 +31,10 @@
 \end{enumerate}
 
 \vspace{1cm}
+{% endif %}
 
-\section*{中1: 比例の式を求める 解答}
+{% if proportional_functions %}
+\section*{中1: 比例の式を求める（表から） 解答}
 
 \begin{enumerate}[label=(\arabic*)]
 {% for problem in proportional_functions %}
@@ -50,7 +53,22 @@ $y$ & {{ problem.y_values[0] }} & {{ problem.y_values[1] }} & {{ problem.y_value
 \end{enumerate}
 
 \vspace{1cm}
+{% endif %}
 
+{% if proportional_conditions %}
+\section*{中1: 比例の式を求める（条件から） 解答}
+
+\begin{enumerate}[label=(\arabic*)]
+{% for problem in proportional_conditions %}
+\item {{ problem.condition }} \\
+解: $y = {{ problem.solution }}$
+{% endfor %}
+\end{enumerate}
+
+\vspace{1cm}
+{% endif %}
+
+{% if simultaneous_equations %}
 \section*{中2: 連立方程式 解答}
 
 \begin{enumerate}[label=(\arabic*)]
@@ -63,5 +81,6 @@ $\begin{cases}
 解: $x = {{ problem.solution_x }}$, $y = {{ problem.solution_y }}$
 {% endfor %}
 \end{enumerate}
+{% endif %}
 
 \end{document}

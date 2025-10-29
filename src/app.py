@@ -13,6 +13,7 @@ from jinja2 import Environment, FileSystemLoader
 from generators import (
     LinearEquationGenerator,
     ProportionalFunctionGenerator,
+    ProportionalFunctionFromConditionGenerator,
     SimultaneousEquationGenerator
 )
 
@@ -28,26 +29,36 @@ OUTPUT_DIR = PROJECT_ROOT / 'output'
 OUTPUT_DIR.mkdir(exist_ok=True)
 
 
-def generate_tex_files(seed, num_problems, output_dir):
-    """Generate TeX files for problems and answers."""
+def generate_tex_files(seed, problem_types, output_dir):
+    """Generate TeX files for problems and answers.
+
+    Args:
+        seed: Random seed
+        problem_types: Dictionary with problem types and their counts
+                      e.g., {'linear_equations': 5, 'proportional_functions': 10, ...}
+        output_dir: Output directory path
+    """
     # Set random seed
     rng = random.Random(seed)
 
     # Initialize generators
     linear_gen = LinearEquationGenerator(rng)
     proportional_gen = ProportionalFunctionGenerator(rng)
+    proportional_condition_gen = ProportionalFunctionFromConditionGenerator(rng)
     simultaneous_gen = SimultaneousEquationGenerator(rng)
 
-    # Generate problems
-    linear_equations = linear_gen.generate(num_problems)
-    proportional_functions = proportional_gen.generate(num_problems)
-    simultaneous_equations = simultaneous_gen.generate(num_problems)
+    # Generate problems based on requested types
+    linear_equations = linear_gen.generate(problem_types.get('linear_equations', 0)) if problem_types.get('linear_equations', 0) > 0 else []
+    proportional_functions = proportional_gen.generate(problem_types.get('proportional_functions', 0)) if problem_types.get('proportional_functions', 0) > 0 else []
+    proportional_conditions = proportional_condition_gen.generate(problem_types.get('proportional_conditions', 0)) if problem_types.get('proportional_conditions', 0) > 0 else []
+    simultaneous_equations = simultaneous_gen.generate(problem_types.get('simultaneous_equations', 0)) if problem_types.get('simultaneous_equations', 0) > 0 else []
 
     # Prepare template data
     template_data = {
         'seed': seed,
         'linear_equations': linear_equations,
         'proportional_functions': proportional_functions,
+        'proportional_conditions': proportional_conditions,
         'simultaneous_equations': simultaneous_equations
     }
 
@@ -105,19 +116,31 @@ def generate():
     try:
         # Get parameters from form
         seed = int(request.form.get('seed', 12345))
-        num_problems = int(request.form.get('num_problems', 5))
         pdf_type = request.form.get('pdf_type', 'both')  # 'problems', 'answers', or 'both'
 
+        # Get problem type counts
+        problem_types = {
+            'linear_equations': int(request.form.get('linear_equations', 0)),
+            'proportional_functions': int(request.form.get('proportional_functions', 0)),
+            'proportional_conditions': int(request.form.get('proportional_conditions', 0)),
+            'simultaneous_equations': int(request.form.get('simultaneous_equations', 0))
+        }
+
         # Validate parameters
-        if not (1 <= num_problems <= 20):
-            return jsonify({'error': 'Number of problems must be between 1 and 20'}), 400
+        for problem_type, count in problem_types.items():
+            if count < 0 or count > 500:
+                return jsonify({'error': f'{problem_type}: Number of problems must be between 0 and 500'}), 400
+
+        # Check if at least one problem type is selected
+        if all(count == 0 for count in problem_types.values()):
+            return jsonify({'error': 'Please select at least one problem type with count > 0'}), 400
 
         # Create temporary directory for this generation
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
 
             # Generate TeX files
-            problems_tex, answers_tex = generate_tex_files(seed, num_problems, temp_path)
+            problems_tex, answers_tex = generate_tex_files(seed, problem_types, temp_path)
 
             # Compile to PDF
             pdf_files = []
@@ -144,7 +167,7 @@ def generate():
             return jsonify({
                 'success': True,
                 'seed': seed,
-                'num_problems': num_problems,
+                'problem_types': problem_types,
                 'files': result_files
             })
 

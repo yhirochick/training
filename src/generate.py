@@ -11,6 +11,7 @@ from jinja2 import Environment, FileSystemLoader
 from generators import (
     LinearEquationGenerator,
     ProportionalFunctionGenerator,
+    ProportionalFunctionFromConditionGenerator,
     SimultaneousEquationGenerator
 )
 
@@ -40,11 +41,13 @@ def main():
     # Initialize generators
     linear_gen = LinearEquationGenerator(rng)
     proportional_gen = ProportionalFunctionGenerator(rng)
+    proportional_condition_gen = ProportionalFunctionFromConditionGenerator(rng)
     simultaneous_gen = SimultaneousEquationGenerator(rng)
 
     # Generate problems
     linear_equations = linear_gen.generate(args.num_problems)
     proportional_functions = proportional_gen.generate(args.num_problems)
+    proportional_conditions = proportional_condition_gen.generate(args.num_problems)
     simultaneous_equations = simultaneous_gen.generate(args.num_problems)
 
     # Prepare template data
@@ -52,6 +55,7 @@ def main():
         'seed': args.seed,
         'linear_equations': linear_equations,
         'proportional_functions': proportional_functions,
+        'proportional_conditions': proportional_conditions,
         'simultaneous_equations': simultaneous_equations
     }
 
