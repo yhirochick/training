@@ -111,11 +111,10 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
   % Origin
   \node[below left,font=\tiny] at (0,0) {O};
   % Plot line
-  \draw[blue,thick,domain=-5.5:5.5] plot (\x,{{{ problem.a }}*\x});
+  \draw[blue,thick,domain=-5.5:5.5] plot (\x,{{ problem.a }}*\x);
   % Plot points
-  {% for i in range(5) %}
-  \fill[red] ({{ problem.x_values[i] }},{{ problem.y_values[i] }}) circle (2pt);
-  {% endfor %}
+  \foreach \i/\px/\py in {0/{{ problem.x_values[0] }}/{{ problem.y_values[0] }},1/{{ problem.x_values[1] }}/{{ problem.y_values[1] }},2/{{ problem.x_values[2] }}/{{ problem.y_values[2] }},3/{{ problem.x_values[3] }}/{{ problem.y_values[3] }},4/{{ problem.x_values[4] }}/{{ problem.y_values[4] }}}
+    \fill[red] (\px,\py) circle (2pt);
 \end{tikzpicture}
 \end{center}
 
