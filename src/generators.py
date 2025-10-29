@@ -72,6 +72,9 @@ class ProportionalFunctionGenerator:
                     x = self.rng.randint(-5, 5)
                 x_values.append(x)
 
+            # Sort x values in ascending order (left to right in table)
+            x_values.sort()
+
             # Calculate corresponding y values
             y_values = [a * x for x in x_values]
 

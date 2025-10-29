@@ -49,15 +49,15 @@
 \begin{enumerate}[label=(\arabic*)]
 {% for problem in proportional_functions %}
 \item
-\begin{center}
+\begin{flushleft}
 \begin{tabular}{|c|c|c|c|}
 \hline
-$x$ & {{ problem.x_values[0] }} & {{ problem.x_values[1] }} & {{ problem.x_values[2] }} \\
+$x$ & \large{{ problem.x_values[0] }} & \large{{ problem.x_values[1] }} & \large{{ problem.x_values[2] }} \\
 \hline
-$y$ & {{ problem.y_values[0] }} & {{ problem.y_values[1] }} & {{ problem.y_values[2] }} \\
+$y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large{{ problem.y_values[2] }} \\
 \hline
 \end{tabular}
-\end{center}
+\end{flushleft}
 解: $y = {{ problem.solution }}$
 {% endfor %}
 \end{enumerate}
