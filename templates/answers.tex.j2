@@ -82,7 +82,8 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
 
 {% if proportional_graphs %}
 \onecolumn
-\section*{中1: 比例のグラフ 解答}
+\subsection*{中1: 比例のグラフ 解答}
+\vspace{-0.3cm}
 
 \begin{enumerate}[label=(\arabic*)]
 {% for problem in proportional_graphs %}
@@ -98,10 +99,10 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
 \end{tabular}
 \end{flushleft}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.7]
   % Grid
   \draw[step=0.5cm,gray,very thin] (-5.5,-5.5) grid (5.5,5.5);
   % Axes
@@ -114,13 +115,16 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
     \draw (0.1,\y) -- (-0.1,\y) node[left,font=\small] {\y};
   % Origin
   \node[below left,font=\small] at (0,0) {O};
-  % Plot line
-  \draw[blue,thick,domain=-5.5:5.5] plot (\x,{{ problem.a }}*\x);
+  % Plot line (clipped to visible area)
+  \clip (-5.5,-5.5) rectangle (5.5,5.5);
+  \draw[blue,thick,domain=-5.5:5.5,samples=100] plot (\x,{{{ problem.a }}*\x});
   % Plot points
-  \foreach \i/\px/\py in {0/{{ problem.x_values[0] }}/{{ problem.y_values[0] }},1/{{ problem.x_values[1] }}/{{ problem.y_values[1] }},2/{{ problem.x_values[2] }}/{{ problem.y_values[2] }},3/{{ problem.x_values[3] }}/{{ problem.y_values[3] }},4/{{ problem.x_values[4] }}/{{ problem.y_values[4] }}}
+  \foreach \px/\py in {{{ problem.x_values[0] }}/{{ problem.y_values[0] }},{{ problem.x_values[1] }}/{{ problem.y_values[1] }},{{ problem.x_values[2] }}/{{ problem.y_values[2] }},{{ problem.x_values[3] }}/{{ problem.y_values[3] }},{{ problem.x_values[4] }}/{{ problem.y_values[4] }}}
     \fill[red] (\px,\py) circle (3pt);
 \end{tikzpicture}
 \end{center}
+
+\vspace{0.5cm}
 
 {% endfor %}
 \end{enumerate}

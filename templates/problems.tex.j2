@@ -85,9 +85,9 @@ $y$は$x$に比例する。次の条件のとき、$y$を$x$の式で表しな�
 
 {% if proportional_graphs %}
 \onecolumn
-\section*{中1: 比例のグラフ}
-
-次の式について、表の空欄を埋め、グラフをかきなさい。
+\subsection*{中1: 比例のグラフ}
+\vspace{-0.3cm}
+{\small 次の式について、表の空欄を埋め、グラフをかきなさい。}
 
 \begin{enumerate}[label=(\arabic*)]
 {% for problem in proportional_graphs %}
@@ -103,10 +103,10 @@ $y$ & \large & \large & \large & \large & \large \\
 \end{tabular}
 \end{flushleft}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.7]
   % Grid
   \draw[step=0.5cm,gray,very thin] (-5.5,-5.5) grid (5.5,5.5);
   % Axes
@@ -121,6 +121,8 @@ $y$ & \large & \large & \large & \large & \large \\
   \node[below left,font=\small] at (0,0) {O};
 \end{tikzpicture}
 \end{center}
+
+\vspace{0.5cm}
 
 {% endfor %}
 \end{enumerate}
