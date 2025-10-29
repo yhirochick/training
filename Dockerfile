@@ -15,10 +15,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir jinja2
+RUN pip3 install --no-cache-dir jinja2 flask
 
 # Set working directory
 WORKDIR /workspace
 
-# Default command
+# Expose Flask port
+EXPOSE 5000
+
+# Default command (can be overridden)
 CMD ["/bin/bash"]

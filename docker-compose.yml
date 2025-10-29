@@ -7,3 +7,16 @@ services:
     working_dir: /workspace
     tty: true
     stdin_open: true
+
+  web:
+    build: .
+    container_name: math-worksheet-web
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    ports:
+      - "5000:5000"
+    command: python3 src/app.py
+    environment:
+      - FLASK_APP=src/app.py
+      - FLASK_ENV=development

@@ -37,25 +37,30 @@
 
 ## 使い方
 
-### 1. Dockerイメージのビルド
+### 方法1: Webサービス（推奨）
 
-初回のみ実行:
+ブラウザから簡単にPDF生成:
 
 ```bash
+# 1. イメージビルド（初回のみ）
 docker compose build
+
+# 2. Webサーバー起動
+docker compose up web
+
+# 3. ブラウザでアクセス
+# http://localhost:5000
 ```
 
-### 2. PDFの生成
+### 方法2: コマンドライン
 
-デフォルトシード（12345）で生成:
+従来のCLIでのPDF生成:
 
 ```bash
+# デフォルトシード（12345）で生成
 make docker-build
-```
 
-カスタムシードで生成:
-
-```bash
+# カスタムシードで生成
 make docker-build SEED=54321
 ```
 
@@ -139,8 +144,9 @@ y | 27 | -27| -36
 ## ドキュメント
 
 - `README.md` - このファイル（概要とクイックスタート）
+- `WEB_SERVICE.md` - **Webサービスの使用方法とAPI仕様**
 - `DOCKER_GUIDE.md` - Docker環境での詳細な使用方法とトラブルシューティング
-- `USAGE.md` - 詳細な使用方法とカスタマイズ
+- `USAGE.md` - CLI版の詳細な使用方法とカスタマイズ
 - `PROJECT_STRUCTURE.md` - プロジェクト構成と技術詳細
 - `SUMMARY.md` - 実装完了サマリー
 
