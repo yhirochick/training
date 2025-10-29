@@ -42,6 +42,7 @@
 {% endfor %}
 \end{enumerate}
 
+\newpage
 {% endif %}
 
 {% if proportional_functions %}
@@ -63,6 +64,7 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
 {% endfor %}
 \end{enumerate}
 
+\newpage
 {% endif %}
 
 {% if proportional_conditions %}
@@ -75,9 +77,11 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
 {% endfor %}
 \end{enumerate}
 
+\newpage
 {% endif %}
 
 {% if proportional_graphs %}
+\onecolumn
 \section*{中1: 比例のグラフ 解答}
 
 \begin{enumerate}[label=(\arabic*)]
@@ -94,10 +98,10 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
 \end{tabular}
 \end{flushleft}
 
-\vspace{0.3cm}
+\vspace{0.5cm}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.45]
+\begin{tikzpicture}[scale=0.8]
   % Grid
   \draw[step=0.5cm,gray,very thin] (-5.5,-5.5) grid (5.5,5.5);
   % Axes
@@ -105,22 +109,24 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
   \draw[thick,->] (0,-5.5) -- (0,5.5) node[above] {$y$};
   % Tick marks
   \foreach \x in {-5,-4,-3,-2,-1,1,2,3,4,5}
-    \draw (\x,0.1) -- (\x,-0.1) node[below,font=\tiny] {\x};
+    \draw (\x,0.1) -- (\x,-0.1) node[below,font=\small] {\x};
   \foreach \y in {-5,-4,-3,-2,-1,1,2,3,4,5}
-    \draw (0.1,\y) -- (-0.1,\y) node[left,font=\tiny] {\y};
+    \draw (0.1,\y) -- (-0.1,\y) node[left,font=\small] {\y};
   % Origin
-  \node[below left,font=\tiny] at (0,0) {O};
+  \node[below left,font=\small] at (0,0) {O};
   % Plot line
   \draw[blue,thick,domain=-5.5:5.5] plot (\x,{{ problem.a }}*\x);
   % Plot points
   \foreach \i/\px/\py in {0/{{ problem.x_values[0] }}/{{ problem.y_values[0] }},1/{{ problem.x_values[1] }}/{{ problem.y_values[1] }},2/{{ problem.x_values[2] }}/{{ problem.y_values[2] }},3/{{ problem.x_values[3] }}/{{ problem.y_values[3] }},4/{{ problem.x_values[4] }}/{{ problem.y_values[4] }}}
-    \fill[red] (\px,\py) circle (2pt);
+    \fill[red] (\px,\py) circle (3pt);
 \end{tikzpicture}
 \end{center}
 
 {% endfor %}
 \end{enumerate}
 
+\twocolumn
+\newpage
 {% endif %}
 
 {% if simultaneous_equations %}
