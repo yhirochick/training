@@ -12,6 +12,7 @@ from generators import (
     LinearEquationGenerator,
     ProportionalFunctionGenerator,
     ProportionalFunctionFromConditionGenerator,
+    ProportionalGraphGenerator,
     SimultaneousEquationGenerator
 )
 
@@ -42,12 +43,14 @@ def main():
     linear_gen = LinearEquationGenerator(rng)
     proportional_gen = ProportionalFunctionGenerator(rng)
     proportional_condition_gen = ProportionalFunctionFromConditionGenerator(rng)
+    proportional_graph_gen = ProportionalGraphGenerator(rng)
     simultaneous_gen = SimultaneousEquationGenerator(rng)
 
     # Generate problems
     linear_equations = linear_gen.generate(args.num_problems)
     proportional_functions = proportional_gen.generate(args.num_problems)
     proportional_conditions = proportional_condition_gen.generate(args.num_problems)
+    proportional_graphs = proportional_graph_gen.generate(args.num_problems)
     simultaneous_equations = simultaneous_gen.generate(args.num_problems)
 
     # Prepare template data
@@ -56,6 +59,7 @@ def main():
         'linear_equations': linear_equations,
         'proportional_functions': proportional_functions,
         'proportional_conditions': proportional_conditions,
+        'proportional_graphs': proportional_graphs,
         'simultaneous_equations': simultaneous_equations
     }
 

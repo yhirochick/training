@@ -79,6 +79,32 @@ $y$は$x$に比例する。次の条件のとき、$y$を$x$の式で表しな�
 
 {% endif %}
 
+{% if proportional_graphs %}
+\section*{中1: 比例のグラフ}
+
+次の式について、表の空欄を埋め、グラフをかきなさい。
+
+\begin{enumerate}[label=(\arabic*)]
+{% for problem in proportional_graphs %}
+\item ${{ problem.equation }}$
+
+\begin{flushleft}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$x$ & \large{{ problem.x_values[0] }} & \large{{ problem.x_values[1] }} & \large{{ problem.x_values[2] }} & \large{{ problem.x_values[3] }} & \large{{ problem.x_values[4] }} \\
+\hline
+$y$ & \large & \large & \large & \large & \large \\
+\hline
+\end{tabular}
+\end{flushleft}
+
+\vspace{3cm}
+
+{% endfor %}
+\end{enumerate}
+
+{% endif %}
+
 {% if simultaneous_equations %}
 \section*{中2: 連立方程式}
 

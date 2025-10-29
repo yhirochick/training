@@ -14,6 +14,7 @@ from generators import (
     LinearEquationGenerator,
     ProportionalFunctionGenerator,
     ProportionalFunctionFromConditionGenerator,
+    ProportionalGraphGenerator,
     SimultaneousEquationGenerator
 )
 
@@ -45,12 +46,14 @@ def generate_tex_files(seed, problem_types, output_dir):
     linear_gen = LinearEquationGenerator(rng)
     proportional_gen = ProportionalFunctionGenerator(rng)
     proportional_condition_gen = ProportionalFunctionFromConditionGenerator(rng)
+    proportional_graph_gen = ProportionalGraphGenerator(rng)
     simultaneous_gen = SimultaneousEquationGenerator(rng)
 
     # Generate problems based on requested types
     linear_equations = linear_gen.generate(problem_types.get('linear_equations', 0)) if problem_types.get('linear_equations', 0) > 0 else []
     proportional_functions = proportional_gen.generate(problem_types.get('proportional_functions', 0)) if problem_types.get('proportional_functions', 0) > 0 else []
     proportional_conditions = proportional_condition_gen.generate(problem_types.get('proportional_conditions', 0)) if problem_types.get('proportional_conditions', 0) > 0 else []
+    proportional_graphs = proportional_graph_gen.generate(problem_types.get('proportional_graphs', 0)) if problem_types.get('proportional_graphs', 0) > 0 else []
     simultaneous_equations = simultaneous_gen.generate(problem_types.get('simultaneous_equations', 0)) if problem_types.get('simultaneous_equations', 0) > 0 else []
 
     # Prepare template data
@@ -59,6 +62,7 @@ def generate_tex_files(seed, problem_types, output_dir):
         'linear_equations': linear_equations,
         'proportional_functions': proportional_functions,
         'proportional_conditions': proportional_conditions,
+        'proportional_graphs': proportional_graphs,
         'simultaneous_equations': simultaneous_equations
     }
 
@@ -123,6 +127,7 @@ def generate():
             'linear_equations': int(request.form.get('linear_equations', 0)),
             'proportional_functions': int(request.form.get('proportional_functions', 0)),
             'proportional_conditions': int(request.form.get('proportional_conditions', 0)),
+            'proportional_graphs': int(request.form.get('proportional_graphs', 0)),
             'simultaneous_equations': int(request.form.get('simultaneous_equations', 0))
         }
 

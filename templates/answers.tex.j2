@@ -76,6 +76,28 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
 
 {% endif %}
 
+{% if proportional_graphs %}
+\section*{中1: 比例のグラフ 解答}
+
+\begin{enumerate}[label=(\arabic*)]
+{% for problem in proportional_graphs %}
+\item ${{ problem.equation }}$
+
+\begin{flushleft}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$x$ & \large{{ problem.x_values[0] }} & \large{{ problem.x_values[1] }} & \large{{ problem.x_values[2] }} & \large{{ problem.x_values[3] }} & \large{{ problem.x_values[4] }} \\
+\hline
+$y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large{{ problem.y_values[2] }} & \large{{ problem.y_values[3] }} & \large{{ problem.y_values[4] }} \\
+\hline
+\end{tabular}
+\end{flushleft}
+
+{% endfor %}
+\end{enumerate}
+
+{% endif %}
+
 {% if simultaneous_equations %}
 \section*{中2: 連立方程式 解答}
 

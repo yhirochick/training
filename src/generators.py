@@ -140,6 +140,54 @@ class ProportionalFunctionFromConditionGenerator:
         return problems
 
 
+class ProportionalGraphGenerator:
+    """Generator for proportional graph problems (中1 比例 - 式からグラフを書く)."""
+
+    def __init__(self, rng: random.Random):
+        self.rng = rng
+
+    def generate(self, num_problems: int = 5) -> list:
+        """Generate problems to fill table and draw graph from proportional equation."""
+        problems = []
+
+        for _ in range(num_problems):
+            # Random proportionality constant
+            a = self.rng.randint(-10, 10)
+            while a == 0:
+                a = self.rng.randint(-10, 10)
+
+            # Generate 5 x values (more points for graph)
+            x_values = []
+            for _ in range(5):
+                x = self.rng.randint(-5, 5)
+                while x in x_values:
+                    x = self.rng.randint(-5, 5)
+                x_values.append(x)
+
+            # Sort x values in ascending order
+            x_values.sort()
+
+            # Calculate corresponding y values
+            y_values = [a * x for x in x_values]
+
+            # Format equation
+            if a == 1:
+                equation = "y = x"
+            elif a == -1:
+                equation = "y = -x"
+            else:
+                equation = f"y = {a}x"
+
+            problems.append({
+                'equation': equation,
+                'x_values': x_values,
+                'y_values': y_values,
+                'a': a
+            })
+
+        return problems
+
+
 class SimultaneousEquationGenerator:
     """Generator for simultaneous equations (中2 連立方程式)."""
 

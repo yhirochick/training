@@ -360,6 +360,23 @@
 
                 <div class="problem-type-item">
                     <div class="problem-type-header">
+                        <span class="problem-type-label">中1: 比例のグラフ</span>
+                    </div>
+                    <div class="problem-type-description">式から表を埋めてグラフを書く（y=2x等）</div>
+                    <div class="problem-count-control">
+                        <input type="number" name="proportional_graphs" id="proportional_graphs" value="5" min="0" max="500">
+                        <span>問</span>
+                        <div class="quick-set-buttons">
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_graphs', 0)">0</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_graphs', 10)">10</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_graphs', 50)">50</button>
+                            <button type="button" class="quick-set-btn" onclick="setCount('proportional_graphs', 100)">100</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-type-item">
+                    <div class="problem-type-header">
                         <span class="problem-type-label">中2: 連立方程式</span>
                     </div>
                     <div class="problem-type-description">2元1次連立方程式</div>
@@ -437,9 +454,10 @@
             const linear = parseInt(formData.get('linear_equations'));
             const propFunc = parseInt(formData.get('proportional_functions'));
             const propCond = parseInt(formData.get('proportional_conditions'));
+            const propGraph = parseInt(formData.get('proportional_graphs'));
             const simul = parseInt(formData.get('simultaneous_equations'));
 
-            if (linear === 0 && propFunc === 0 && propCond === 0 && simul === 0) {
+            if (linear === 0 && propFunc === 0 && propCond === 0 && propGraph === 0 && simul === 0) {
                 error.textContent = 'エラー: 少なくとも1つの問題タイプで問題数を1以上に設定してください';
                 error.style.display = 'block';
                 loading.style.display = 'none';
