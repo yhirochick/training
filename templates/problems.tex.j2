@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage{fancyhdr}
+\usepackage{tikz}
 
 % Noto CJK フォント設定
 \setmainjfont{Noto Sans CJK JP}
@@ -98,7 +99,24 @@ $y$ & \large & \large & \large & \large & \large \\
 \end{tabular}
 \end{flushleft}
 
-\vspace{3cm}
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.45]
+  % Grid
+  \draw[step=0.5cm,gray,very thin] (-5.5,-5.5) grid (5.5,5.5);
+  % Axes
+  \draw[thick,->] (-5.5,0) -- (5.5,0) node[right] {$x$};
+  \draw[thick,->] (0,-5.5) -- (0,5.5) node[above] {$y$};
+  % Tick marks
+  \foreach \x in {-5,-4,-3,-2,-1,1,2,3,4,5}
+    \draw (\x,0.1) -- (\x,-0.1) node[below,font=\tiny] {\x};
+  \foreach \y in {-5,-4,-3,-2,-1,1,2,3,4,5}
+    \draw (0.1,\y) -- (-0.1,\y) node[left,font=\tiny] {\y};
+  % Origin
+  \node[below left,font=\tiny] at (0,0) {O};
+\end{tikzpicture}
+\end{center}
 
 {% endfor %}
 \end{enumerate}
