@@ -69,7 +69,7 @@ $y$ & \large{{ problem.y_values[0] }} & \large{{ problem.y_values[1] }} & \large
 
 \begin{enumerate}[label=(\arabic*)]
 {% for problem in proportional_conditions %}
-\item {{ problem.condition }} \\
+\item ${{ problem.condition }}$ \\
 解: $y = {{ problem.solution }}$
 {% endfor %}
 \end{enumerate}
